@@ -1,7 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
 load("//tools:build_rules/go.bzl", "go_binary")
-load("@bazel_tools//tools/build_defs/docker:docker.bzl", "docker_build")
+load("@io_bazel_rules_docker//docker:docker.bzl", "docker_build")
 
 go_binary(
     name = "accountapi",

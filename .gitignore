@@ -46,3 +46,10 @@ vendor
 # in case you accidentally run npm at this level
 npm-debug.log
 node_modules/
+
+*env*
+docker/scripts/*
+my-scipts.sh
+unison-2.40.102*
+tmp/*
+account/v2.staffjoy.com/

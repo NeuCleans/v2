@@ -9,7 +9,7 @@ cd protobuf
 ./autogen.sh
 ./configure
 make
-make check
+# make check
 sudo make install
 cd ..
 rm -rf tmp

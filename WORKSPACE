@@ -1,3 +1,32 @@
+## DOCKER RULES
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "io_bazel_rules_docker",
+    sha256 = "6dede2c65ce86289969b907f343a1382d33c14fbce5e30dd17bb59bb55bb6593",
+    strip_prefix = "rules_docker-0.4.0",
+    urls = ["https://github.com/bazelbuild/rules_docker/archive/v0.4.0.tar.gz"],
+)
+
+
+load(
+    "@io_bazel_rules_docker//container:container.bzl",
+    "container_pull",
+    container_repositories = "repositories",
+)
+
+# This is NOT needed when going through the language lang_image
+# "repositories" function(s).
+container_repositories()
+
+container_pull(
+  name = "java_base",
+  registry = "gcr.io",
+  repository = "distroless/java",
+  # 'tag' is also supported, but digest is encouraged for reproducibility.
+  digest = "sha256:deadbeef",
+)
+
 #DOCKER STUFF
 
 new_http_archive(
@@ -37,6 +66,18 @@ http_file(
     url="https://deb.nodesource.com/node_6.x/pool/main/n/nodejs/nodejs-dbg_6.4.0-1nodesource1~trusty1_amd64.deb",
     sha256="6a481ab1ec13849ca0465f2a97255ef3291760c7dd327a424a715c015aef1543",
 )
+
+## GO RULES
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
+    name = "io_bazel_rules_go",
+    urls = ["https://github.com/bazelbuild/rules_go/releases/download/0.12.0/rules_go-0.12.0.tar.gz"],
+    sha256 = "c1f52b8789218bb1542ed362c4f7de7052abcf254d865d96fb7ba6d44bc15ee3",
+)
+load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
+go_rules_dependencies()
+go_register_toolchains()
+
 
 # GOLANG INIT
 load("//tools/go:go_configure.bzl", "go_configure")
